@@ -1,0 +1,31 @@
+:root{
+    --main-color: #002f34;
+    --secondary-color: #f2f4f5;
+    --hover-color: #f26430;
+}
+
+.footer-container{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 60px;
+    background-color: var(--main-color);
+    color: #ffffff;
+    margin: 0;
+}
+
+.footer-container a{
+    color: #ffffff;
+}
+
+.image{
+    height: 50px;
+    width: auto;
+}
+
+.hr{
+    width: 10%;
+}
