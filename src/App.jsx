@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header'
 import Footer from './components/Footer';
-import Home from './components/Home';
+import HomePage from './components/HomePage';
+import ResultsPage from './components/ResultsPage';
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
 			<Header />
 
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/" element={<HomePage />} />
+					<Route path="/results/:productQuery" element={<ResultsPage />} />
 				</Routes>
 
 			<Footer />
