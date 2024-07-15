@@ -1,6 +1,6 @@
-import Search from "./Search"
-import Results from "./Results"
-import Categories from "./Categories"
+import Search from "../search/Search"
+import Results from "../results/Results"
+import Categories from "../categories/Categories"
 
 function HomePage(){
     return(

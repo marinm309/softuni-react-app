@@ -33,12 +33,12 @@ a:hover{
     justify-content: center;
     padding: 0;
     margin-bottom: 100px;
+    gap: 20px;
 }
 
 .categories-container a{
-    flex: 0 0 12.5%;
+    flex: 0 0 calc(12.5% - 40px);
     box-sizing: border-box;
-    padding: 20px;
 }
 
 .categories-container li{

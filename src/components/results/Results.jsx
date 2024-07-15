@@ -16,7 +16,7 @@ const tempResults = [
     {id: 12, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'art'},
 ]
 
-const tempCategories = ['sport', 'art']
+const tempCategories = [...new Set(tempResults.map(item => item.category))]
 
 function Results(props){
     const filterQuery = useParams()
