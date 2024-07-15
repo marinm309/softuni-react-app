@@ -8,8 +8,8 @@ function Header(){
                 <Link to={'/'}><li><img src="/logo-placeholder.jpg" className={styles['image']} /></li></Link>
                 <div className={styles['no-logo-container']}>
                     <Link to={'/add-product'}><li>Add Product</li></Link>
-                    <Link to={'/login'}><li>Login</li></Link>
-                    <Link to={'/register'}><li>Register</li></Link>
+                    <Link to={'/signin'}><li>Sign in</li></Link>
+                    <Link to={'/signup'}><li>Register</li></Link>
                     <Link to={'/profile'}><li><img src="/profile-placeholder.jpg" className={styles['image']} /></li></Link>
                 </div>
             </ul>
