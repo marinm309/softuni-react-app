@@ -8,6 +8,7 @@ import PrivacyPolicyPage from './components/privacy-policy/PrivacyPolicyPage';
 import TermsOfServicePage from './components/terms-of-service/TermsOfServicePage';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import Profile from './components/profile/Profile';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
 				<Route path="/terms-of-service" element={<TermsOfServicePage />} />
 				<Route path="/signin" element={<Login />} />
 				<Route path="/signup" element={<Register />} />
+				<Route path="/profile" element={<Profile />} />
 			</Routes>
 
 		<Footer />

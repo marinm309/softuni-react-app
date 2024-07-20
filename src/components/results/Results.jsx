@@ -25,7 +25,7 @@ function Results(props){
     return(
             <div className="latest-products-section">
 
-                <h2>{props.homePageText ? 'Latest products' : `Total results: ${items.length}` }</h2>
+                <h2>{props.title ? props.title : `Total results: ${items.length}` }</h2>
 
                 <ul className="latest-products-container">
                     {items.map((r) => 

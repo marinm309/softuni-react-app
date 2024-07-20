@@ -10,7 +10,7 @@ function HomePage(){
 
             <Categories />
             
-            <Results homePageText={'Latest products'} />
+            <Results title={'Latest products'} />
 
         </div>
     )
