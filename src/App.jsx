@@ -9,6 +9,7 @@ import TermsOfServicePage from './components/terms-of-service/TermsOfServicePage
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Profile from './components/profile/Profile';
+import AddProduct from './components/add-product/AddProduct';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/signin" element={<Login />} />
 				<Route path="/signup" element={<Register />} />
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/add-product" element={<AddProduct />} />
 			</Routes>
 
 		<Footer />
