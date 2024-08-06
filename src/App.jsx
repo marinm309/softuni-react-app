@@ -1,5 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { useEffect, useState } from 'react';
+
+import { ClientContext, client } from './context/clientContext.js'
+
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer';
 import HomePage from './components/home-page/HomePage';
@@ -13,8 +17,16 @@ import AddProduct from './components/add-product/AddProduct';
 
 function App() {
 
+	const [ currentUser, setCurrentUser ] = useState(() => {})
+
+	useEffect(() => {
+		client.get('/users/user')
+		.then(function(res){ setCurrentUser(true) })
+		.catch(function(error){ setCurrentUser(false) })
+	}, [])
+
   return (
-    <>
+    <ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser}}>
 		<Header />
 
 			<Routes>
@@ -29,7 +41,7 @@ function App() {
 			</Routes>
 
 		<Footer />
-    </>
+	</ClientContext.Provider>
   )
 }
 

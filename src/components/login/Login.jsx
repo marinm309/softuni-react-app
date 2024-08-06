@@ -1,18 +1,42 @@
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
+import { ClientContext } from '../../context/clientContext.js'
 
 function Login(){
+
+    function onLogin(e){
+        e.preventDefault()
+        client.post('/users/login', {
+            ...credentials
+        }).then(function(res){
+            setCurrentUser(true)
+        })
+    }
+
+    function handleChange(e){
+        setCredentials((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+    }
+
+    const [ credentials, setCredentials ] = useState({
+        email: '',
+        password: '',
+    })
+
+    const client = useContext(ClientContext).client
+    const setCurrentUser = useContext(ClientContext).setCurrentUser
+
     return(
         <div className="login-register-form">
             <section className="container forms">
                 <div className="form login">
                     <div className="form-content">
                         <header>Login</header>
-                        <form action="#">
+                        <form onSubmit={onLogin}>
                             <div className="field input-field">
-                                <input type="email" placeholder="Email" className="input" />
+                                <input type="email" placeholder="Email" className="input" name="email" value={credentials.email} onChange={handleChange} />
                             </div>
                             <div className="field input-field">
-                                <input type="password" placeholder="Password" className="password" />
+                                <input type="password" placeholder="Password" className="password" name="password" value={credentials.password} onChange={handleChange} />
                                 <i className='bx bx-hide eye-icon'></i>
                             </div>
                             <div className="form-link">
@@ -26,19 +50,6 @@ function Login(){
                             <span>Don't have an account? <Link to="/signup" className="link signup-link">Signup</Link></span>
                         </div>
                     </div>
-                    {/* <div className="line"></div>
-                    <div className="media-options">
-                        <a href="#" className="field facebook">
-                            <i className='bx bxl-facebook facebook-icon'></i>
-                            <span>Login with Facebook</span>
-                        </a>
-                    </div>
-                    <div className="media-options">
-                        <a href="#" className="field google">
-                            <img src="#" alt="" className="google-img" />
-                            <span>Login with Google</span>
-                        </a>
-                    </div> */}
                 </div>
             </section>
         </div>

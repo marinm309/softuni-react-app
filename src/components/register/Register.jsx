@@ -26,19 +26,6 @@ function Register(){
                             <span>Already have an account? <Link to="/signin" className="link login-link">Login</Link></span>
                         </div>
                     </div>
-                    {/* <div className="line"></div>
-                    <div className="media-options">
-                        <a href="#" className="field facebook">
-                            <i className='bx bxl-facebook facebook-icon'></i>
-                            <span>Login with Facebook</span>
-                        </a>
-                    </div>
-                    <div className="media-options">
-                        <a href="#" className="field google">
-                            <img src="#" alt="" className="google-img" />
-                            <span>Login with Google</span>
-                        </a>
-                    </div> */}
                 </div>
             </section>
         </div>

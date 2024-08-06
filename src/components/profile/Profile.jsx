@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react"
+import { client, ClientContext } from "../../context/clientContext"
+
+import { useContext } from 'react'
 
 import Results from "../results/Results"
 
 function Profile(){
 
-    const [ isEditing, setIsEditing ] = useState(false)
-
-    function editHandler(){
-        setIsEditing(oldIsEditing => !oldIsEditing)
+    function onLogout(e){
+        e.preventDefault()
+        client.post('/users/logout', 
+            {withCredentions: true}
+        ).then(function(res){
+            setCurrentUser(false)
+        })
     }
 
     function deleteHandler(){
@@ -17,9 +22,7 @@ function Profile(){
         }
     }
 
-    function saveHandler(){
-        console.log('save')
-    }
+    const setCurrentUser = useContext(ClientContext).setCurrentUser
 
     return(
         <div className="profile-container">
@@ -34,15 +37,8 @@ function Profile(){
                         <li><b>Phone number</b>: Placeholder</li>
                     </ul>
                 </div>
-                    {isEditing ? 
-                    <>
-                        <button className="edit-profile-btn button" onClick={saveHandler}>Save</button>
-                        <button className="delete-profile-btn button" onClick={editHandler}>Cancel</button>
-                    </> : 
-                    <>
-                        <button className="edit-profile-btn button" onClick={editHandler}>Edit</button>
-                        <button className="delete-profile-btn button" onClick={deleteHandler}>Delete</button>
-                    </>}
+                    <button className="edit-profile-btn button" onClick={onLogout}>Logout</button>
+                    <button className="delete-profile-btn button" onClick={deleteHandler}>Delete</button>
             </div>
             <div>
                 <Results title="Listed For Sale" />

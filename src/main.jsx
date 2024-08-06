@@ -6,7 +6,7 @@ import './index.css'
 import './css/login-register.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
 )
