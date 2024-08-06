@@ -8,9 +8,10 @@ function Profile(){
 
     function onLogout(e){
         e.preventDefault()
-        client.post('/users/logout', 
+        client.post('/users/logout',
             {withCredentions: true}
         ).then(function(res){
+            console.log(res)
             setCurrentUser(false)
         })
     }

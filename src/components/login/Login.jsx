@@ -6,11 +6,9 @@ function Login(){
 
     function onLogin(e){
         e.preventDefault()
-        client.post('/users/login', {
-            ...credentials
-        }).then(function(res){
+        client.post('/users/login', credentials).then(function(res){
             setCurrentUser(true)
-        })
+        }).then()
     }
 
     function handleChange(e){

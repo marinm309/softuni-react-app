@@ -17,13 +17,17 @@ import AddProduct from './components/add-product/AddProduct';
 
 function App() {
 
-	const [ currentUser, setCurrentUser ] = useState(() => {})
+	const [ currentUser, setCurrentUser ] = useState(client.get("/users/user"))
 
 	useEffect(() => {
-		client.get('/users/user')
-		.then(function(res){ setCurrentUser(true) })
-		.catch(function(error){ setCurrentUser(false) })
-	}, [])
+		client.get("/users/user")
+		.then(function(res) {
+		  setCurrentUser(true);
+		})
+		.catch(function(error) {
+		  setCurrentUser(false);
+		});
+	  }, []);
 
   return (
     <ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser}}>
