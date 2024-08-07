@@ -11,19 +11,35 @@ function Profile(){
         client.post('/users/logout',
             {withCredentions: true}
         ).then(function(res){
-            console.log(res)
-            setCurrentUser(false)
+            setCurrentUser((oldState) => {!oldState})
         })
     }
 
-    function deleteHandler(){
+    function deleteHandler(e){
         const confirmation = confirm('Your account will be deleted permanently! Are you sure you would you to proceed?')
         if(confirmation){
-            console.log('deleted')
+            console.log(csrfToken)
+            e.preventDefault()
+            client.delete('/users/user',
+                {
+                    headers: {
+                      'x-csrftoken': csrfToken,
+                      'X-CSRFToken': csrfToken,
+                    },
+                    withCredentials: true,
+                  }
+            )
+            .then(function(res){
+                setCurrentUser((oldState) => {!oldState})
+            })
+            .catch(function(err){ console.log(err) })
         }
     }
 
     const setCurrentUser = useContext(ClientContext).setCurrentUser
+    const profileInfo = useContext(ClientContext).profileInfo
+
+    const csrfToken = useContext(ClientContext).csrfToken
 
     return(
         <div className="profile-container">
@@ -33,9 +49,9 @@ function Profile(){
                 </div>
                 <div className="profile-info">
                     <ul>
-                        <li><b>Name</b>: Placeholder</li>
-                        <li><b>Address</b>: Placeholder</li>
-                        <li><b>Phone number</b>: Placeholder</li>
+                        <li><b>Name</b>: {profileInfo.data.user.email}</li>
+                        <li><b>Address</b>: {profileInfo.data.user.email}</li>
+                        <li><b>Phone number</b>: {profileInfo.data.user.email}</li>
                     </ul>
                 </div>
                     <button className="edit-profile-btn button" onClick={onLogout}>Logout</button>

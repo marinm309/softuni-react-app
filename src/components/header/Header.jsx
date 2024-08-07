@@ -12,9 +12,11 @@ function Header(){
             <ul className={styles['header-container']}>
                 <Link to={'/'}><li><img src="/logo-placeholder.jpg" className={styles['image']} /></li></Link>
                 <div className={styles['no-logo-container']}>
-                    <Link to={'/add-product'}><li>Add Product</li></Link>
-                    {currentUser ? 
-                    <Link to={'/profile'}><li><img src="/profile-placeholder.jpg" className={styles['image']} /></li></Link>
+                    {currentUser ?
+                    <>
+                        <Link to={'/add-product'}><li>Add Product</li></Link>
+                        <Link to={'/profile'}><li><img src="/profile-placeholder.jpg" className={styles['image']} /></li></Link>
+                    </>
                     :    
                     <>
                         <Link to={'/signin'}><li>Sign in</li></Link>

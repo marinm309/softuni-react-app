@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 
@@ -17,36 +17,48 @@ import AddProduct from './components/add-product/AddProduct';
 
 function App() {
 
-	const [ currentUser, setCurrentUser ] = useState(client.get("/users/user"))
+	const [ currentUser, setCurrentUser ] = useState(false)
+	const [ loading, setLoading ] = useState(true)
+	const [ profileInfo, setProfileInfo ] = useState()
+
+	const [csrfToken, setCsrfToken] = useState('')
 
 	useEffect(() => {
 		client.get("/users/user")
 		.then(function(res) {
-		  setCurrentUser(true);
+			setProfileInfo(res)
+			setCurrentUser(true)
+			setCsrfToken(res.data.csrf_token)
+			setLoading(false)
 		})
 		.catch(function(error) {
-		  setCurrentUser(false);
+			setCurrentUser(false)
+			setLoading(false)
 		});
-	  }, []);
+	  }, [])
 
-  return (
-    <ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser}}>
-		<Header />
+	if(loading){
+		return <div></div>
+	}
 
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-				<Route path="/results/:productQuery" element={<ResultsPage />} />
-				<Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-				<Route path="/terms-of-service" element={<TermsOfServicePage />} />
-				<Route path="/signin" element={<Login />} />
-				<Route path="/signup" element={<Register />} />
-				<Route path="/profile" element={<Profile />} />
-				<Route path="/add-product" element={<AddProduct />} />
-			</Routes>
+	return (
+		<ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser, profileInfo: profileInfo, csrfToken: csrfToken}}>
+			<Header />
 
-		<Footer />
-	</ClientContext.Provider>
-  )
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/results/:productQuery" element={<ResultsPage />} />
+					<Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+					<Route path="/terms-of-service" element={<TermsOfServicePage />} />
+					<Route path="/signin" element={currentUser ? <Navigate to='/' /> : <Login />} />
+					<Route path="/signup" element={<Register />} />
+					<Route path="/profile" element={currentUser ? <Profile /> : <Navigate to='/' />} />
+					<Route path="/add-product" element={<AddProduct />} />
+				</Routes>
+
+			<Footer />
+		</ClientContext.Provider>
+	)
 }
 
 export default App

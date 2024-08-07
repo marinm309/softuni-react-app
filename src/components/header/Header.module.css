@@ -23,7 +23,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 30%;
+    min-width: 20%;
 }
 
 .header-container a{
