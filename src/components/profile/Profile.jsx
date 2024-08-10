@@ -1,7 +1,6 @@
 import { ClientContext } from "../../context/clientContext"
-
 import { useContext } from 'react'
-
+import Cookies from "js-cookie"
 import Results from "../results/Results"
 
 function Profile(){
@@ -22,7 +21,6 @@ function Profile(){
             client.delete('/users/user',
                 {
                     headers: {
-                      'x-csrftoken': csrfToken,
                       'X-CSRFToken': csrfToken,
                     },
                     withCredentials: true,
@@ -40,7 +38,7 @@ function Profile(){
     const setCurrentUser = useContext(ClientContext).setCurrentUser
     const profileInfo = useContext(ClientContext).profileInfo
 
-    const csrfToken = useContext(ClientContext).csrfToken
+    const csrfToken = Cookies.get('csrftoken')
 
     return(
         <div className="profile-container">
@@ -57,7 +55,7 @@ function Profile(){
                     <button className="delete-profile-btn button" onClick={deleteHandler}>Delete</button>
             </div>
             <div>
-                <Results title="Listed For Sale" />
+                <Results title="Listed For Sale" profile={true} />
             </div>
         </div>
     )

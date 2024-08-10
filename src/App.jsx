@@ -53,7 +53,7 @@ function App() {
 					<Route path="/signin" element={currentUser ? <Navigate to='/' /> : <Login />} />
 					<Route path="/signup" element={currentUser ? <Navigate to='/' /> : <Register />} />
 					<Route path="/profile" element={currentUser ? <Profile /> : <Navigate to='/' />} />
-					<Route path="/add-product" element={<AddProduct />} />
+					<Route path="/add-product" element={currentUser ? <AddProduct /> : <Navigate to='/' />} />
 				</Routes>
 
 			<Footer />

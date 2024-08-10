@@ -1,26 +1,23 @@
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
-
-const tempResults = [
-    {id: 1, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 2, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 3, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 4, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 5, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 6, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 7, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 8, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 9, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'sport'},
-    {id: 10, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'art'},
-    {id: 11, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'art'},
-    {id: 12, img: '/category-placeholder.jpg', title: 'Placeholder title', price: '$999', place: 'Shumen', latestUpdate: 'Placeholder', query: 'ball', category: 'art'},
-]
-
-const tempCategories = [...new Set(tempResults.map(item => item.category))]
+import { useState, useContext, useEffect } from "react"
+import { ClientContext } from "../../context/clientContext"
 
 function Results(props){
+
+    useEffect(() => {
+        client.get(URL)
+        .then(function(res){
+            setItems(res.data)
+        })
+    }, [])
+
+    const [ items, setItems ] = useState([])
+    const client = useContext(ClientContext).client
     const filterQuery = useParams()
-    const items = filterQuery.productQuery ? tempResults.filter((item) => tempCategories.includes(filterQuery.productQuery) ? item.category == filterQuery.productQuery : item.title.includes(filterQuery.productQuery)) : tempResults
+    const profileInfo = useContext(ClientContext).profileInfo
+    const keyWord = filterQuery.productQuery
+    const URL = props.profile ? `/products?profile=${profileInfo.data.user.user_id}` : (keyWord ? `/products?category=${keyWord}` : '/products')
 
     return(
             <div className="latest-products-section">
@@ -29,13 +26,13 @@ function Results(props){
 
                 <ul className="latest-products-container">
                     {items.map((r) => 
-                    <Link key={r.id} to={`/product/${r.query}`}>
+                    <Link key={r.id} to={`/product/${r.title}`}>
                         <li>
-                            <img src={r.img} />
+                            <img src={r.image} />
                             <p>{r.title}</p>
-                            <p>{r.price}</p>
-                            <p>{r.place}</p>
-                            <p>Last update: {r.latestUpdate}</p>
+                            <p><b>Price</b>: <i>${r.price}</i></p>
+                            <p><b>Address</b>: <i>{r.address}</i></p>
+                            <p><b>Last update</b>: <i>{r.last_updated.split('T')[0] + ' ' + r.last_updated.split('T')[1].split('.')[0]}</i></p>
                         </li>
                     </Link>)}
                 </ul>
