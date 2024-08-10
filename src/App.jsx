@@ -35,14 +35,14 @@ function App() {
 			setCurrentUser(false)
 			setLoading(false)
 		});
-	  }, [])
+	  }, [currentUser])
 
 	if(loading){
 		return <div></div>
 	}
 
 	return (
-		<ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser, profileInfo: profileInfo, csrfToken: csrfToken}}>
+		<ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser, profileInfo: profileInfo, setProfileInfo: setProfileInfo, csrfToken: csrfToken}}>
 			<Header />
 
 				<Routes>
@@ -51,7 +51,7 @@ function App() {
 					<Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 					<Route path="/terms-of-service" element={<TermsOfServicePage />} />
 					<Route path="/signin" element={currentUser ? <Navigate to='/' /> : <Login />} />
-					<Route path="/signup" element={<Register />} />
+					<Route path="/signup" element={currentUser ? <Navigate to='/' /> : <Register />} />
 					<Route path="/profile" element={currentUser ? <Profile /> : <Navigate to='/' />} />
 					<Route path="/add-product" element={<AddProduct />} />
 				</Routes>
