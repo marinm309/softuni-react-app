@@ -310,3 +310,17 @@ li{
 .add-product-container textarea{
     height: 150px;
 }
+
+.single-product-container{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+.single-product-info img{
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+}

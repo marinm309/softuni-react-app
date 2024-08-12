@@ -6,8 +6,12 @@ function Login(){
 
     function onLogin(e){
         e.preventDefault()
-        client.post('/users/login', credentials).then(function(res){
+        client.post('/users/login', credentials)
+        .then(function(res){
             setCurrentUser(true)
+        })
+        .catch(function(error){
+            setErr(true)
         })
     }
 
@@ -22,6 +26,7 @@ function Login(){
 
     const client = useContext(ClientContext).client
     const setCurrentUser = useContext(ClientContext).setCurrentUser
+    const [ err, setErr ] = useState(false)
 
     return(
         <div className="login-register-form">
@@ -29,6 +34,7 @@ function Login(){
                 <div className="form login">
                     <div className="form-content">
                         <header>Login</header>
+                        {err && <h2 style={{'color': 'red'}}>Wrong email or password</h2>}
                         <form onSubmit={onLogin}>
                             <div className="field input-field">
                                 <input type="email" placeholder="Email" className="input" name="email" value={credentials.email} onChange={handleChange} />

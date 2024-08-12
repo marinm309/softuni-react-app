@@ -14,6 +14,8 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Profile from './components/profile/Profile';
 import AddProduct from './components/add-product/AddProduct';
+import EditProduct from './components/edit-product/EditProduct.jsx';
+import SingleProduct from './components/single-product/SingleProduct.jsx';
 
 function App() {
 
@@ -54,6 +56,8 @@ function App() {
 					<Route path="/signup" element={currentUser ? <Navigate to='/' /> : <Register />} />
 					<Route path="/profile" element={currentUser ? <Profile /> : <Navigate to='/' />} />
 					<Route path="/add-product" element={currentUser ? <AddProduct /> : <Navigate to='/' />} />
+					<Route path="/edit-product/:productId" element={currentUser ? <EditProduct /> : <Navigate to='/' />} />
+					<Route path="/product/:productId" element={<SingleProduct />} />
 				</Routes>
 
 			<Footer />

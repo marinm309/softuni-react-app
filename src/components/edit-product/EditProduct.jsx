@@ -1,19 +1,19 @@
 import { useState, useEffect, useContext } from "react"
-import { ClientContext } from "../../context/clientContext"
+import { ClientContext } from "../../context/clientContext";
 import Cookies from "js-cookie"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
-function AddProduct(){
-
-    function onAddProduct(e){
+function EditProduct(){
+    
+    function onEditProduct(e){
         e.preventDefault()
         
         const formData = new FormData();
         for (let key in data) {
+            if (key === "image" && typeof data[key] === "string") continue
             formData.append(key, data[key]);
         }
-
-        client.post('/products/', formData, {
+        client.put(`/products/${pk.productId}`, formData, {
             headers: {
                 'X-CSRFToken': csrfToken,
             }
@@ -25,6 +25,13 @@ function AddProduct(){
             setErr(true)
         })
     }
+
+    useEffect(() => {
+        client.get(`/products/${pk.productId}`)
+        .then(function(res){
+            setData(res.data)
+        })
+    }, [])
 
     useEffect(() => {
         client.get('/categories')
@@ -49,6 +56,7 @@ function AddProduct(){
     const profileInfo = useContext(ClientContext).profileInfo
     const csrfToken = Cookies.get('csrftoken')
     const client = useContext(ClientContext).client
+    const pk = useParams()
     const [ err, setErr ] = useState(false)
     const [ data, setData ] = useState({
         title: '',
@@ -56,6 +64,7 @@ function AddProduct(){
         price: '',
         address: '',
         category: 0,
+        image: '',
         user: profileInfo.data.user.user_id,
     })
 
@@ -63,9 +72,9 @@ function AddProduct(){
 
     return(
         <div className="add-product-container">
-            <form onSubmit={onAddProduct}>
+            <form onSubmit={onEditProduct}>
     
-                <h1><strong>List a product</strong> by filling the form below</h1>
+                <h1><strong>Edit a product</strong> by updating the form below</h1>
                 {err && <h2 style={{'color': 'red'}}>Invalid data</h2>}
                 
                 <div className="form-group">
@@ -98,7 +107,7 @@ function AddProduct(){
                 
                 <div className="form-group file-area">
                     <label name="image">Images <span>Your images should be at least 400x300 wide</span></label>
-                    <input type="file" name="image" required="required" onChange={handleImageChange} />
+                    <input type="file" name="image" onChange={handleImageChange} />
                     <div className="file-dummy">
                     <div className="success">Great, your images are selected. Keep on.</div>
                     <div className="default">Please upload images</div>
@@ -106,7 +115,7 @@ function AddProduct(){
                 </div>
                 
                 <div className="form-group">
-                    <button type="submit">Upload item</button>
+                    <button type="submit">Update item</button>
                 </div>
             
             </form>
@@ -114,4 +123,4 @@ function AddProduct(){
     )
 }
 
-export default AddProduct
+export default EditProduct

@@ -9,8 +9,12 @@ function Register(){
             console.log('p')
         }
         e.preventDefault()
-        client.post('/users/register', credentials).then(function(res){
+        client.post('/users/register', credentials)
+        .then(function(res){
             setCurrentUser(true)
+        })
+        .catch(function(error){
+            setErr(true)
         })
     }
 
@@ -31,6 +35,7 @@ function Register(){
     const client = useContext(ClientContext).client
     const setCurrentUser = useContext(ClientContext).setCurrentUser
     const [ rePassword, setRePassword ] = useState('')
+    const [ err, setErr ] = useState(false)
 
     return(
         <div className="login-register-form">
@@ -38,6 +43,7 @@ function Register(){
                 <div className="form signup">
                     <div className="form-content">
                         <header>Signup</header>
+                        {err && <h2 style={{'color': 'red'}}>Invalid data</h2>}
                         <form onSubmit={onRegister}>
                             <div className="field input-field">
                                 <input type="email" placeholder="Email" className="input" onChange={handleChange} value={credentials.email} name="email" />

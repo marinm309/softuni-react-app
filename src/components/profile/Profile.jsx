@@ -10,6 +10,7 @@ function Profile(){
         client.post('/users/logout',
             {withCredentions: true}
         ).then(function(res){
+            setProfileInfo(null)
             setCurrentUser((oldState) => {!oldState})
         })
     }
@@ -33,18 +34,18 @@ function Profile(){
         }
     }
 
-
     const client = useContext(ClientContext).client
     const setCurrentUser = useContext(ClientContext).setCurrentUser
     const profileInfo = useContext(ClientContext).profileInfo
+    const setProfileInfo = useContext(ClientContext).setProfileInfo
 
     const csrfToken = Cookies.get('csrftoken')
-
+    
     return(
         <div className="profile-container">
             <div className="profile-image-info-container">
                 <div className="profile-image">
-                    <img src='/category-placeholder.jpg' />
+                    <img src='/profile-placeholder.jpg' />
                 </div>
                 <div className="profile-info">
                     <ul>
@@ -52,7 +53,6 @@ function Profile(){
                     </ul>
                 </div>
                     <button className="edit-profile-btn button" onClick={onLogout}>Logout</button>
-                    <button className="delete-profile-btn button" onClick={deleteHandler}>Delete</button>
             </div>
             <div>
                 <Results title="Listed For Sale" profile={true} />

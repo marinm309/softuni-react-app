@@ -26,7 +26,7 @@ function Results(props){
 
                 <ul className="latest-products-container">
                     {items.map((r) => 
-                    <Link key={r.id} to={`/product/${r.title}`}>
+                    <Link key={r.id} to={`/product/${r.id}`}>
                         <li>
                             <img src={r.image} />
                             <p>{r.title}</p>
