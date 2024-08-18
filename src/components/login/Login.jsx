@@ -9,6 +9,7 @@ function Login(){
         client.post('/users/login', credentials)
         .then(function(res){
             setCurrentUser(true)
+            
         })
         .catch(function(error){
             setErr(true)

@@ -17,7 +17,7 @@ function Results(props){
     const filterQuery = useParams()
     const profileInfo = useContext(ClientContext).profileInfo
     const keyWord = filterQuery.productQuery
-    const URL = props.profile ? `/products?profile=${profileInfo.data.user.user_id}` : (keyWord ? `/products?category=${keyWord}` : '/products')
+    const URL = props.profile ? `/products?profile=${profileInfo.data.user.user_id}` : (keyWord ? `/products?category=${keyWord}` : '/products?total_results=8')
 
     return(
             <div className="latest-products-section">

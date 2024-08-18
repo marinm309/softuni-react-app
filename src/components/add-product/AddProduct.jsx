@@ -75,7 +75,7 @@ function AddProduct(){
 
                 <div className="form-group">
                     <label name="price">Price <span></span></label>
-                    <input name="price" className="form-controll" required="required" onChange={handleChange} value={data.price} />
+                    <input name="price" type="number" className="form-controll" required="required" onChange={handleChange} value={data.price} />
                 </div>
 
                 <div className="form-group">

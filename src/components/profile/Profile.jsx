@@ -45,7 +45,7 @@ function Profile(){
         <div className="profile-container">
             <div className="profile-image-info-container">
                 <div className="profile-image">
-                    <img src='/profile-placeholder.jpg' />
+                    <img src={profileInfo.data.user.image ? profileInfo.data.user.image : '/profile-placeholder.jpg'} />
                 </div>
                 <div className="profile-info">
                     <ul>
