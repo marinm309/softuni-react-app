@@ -45,7 +45,7 @@ function AddProduct(){
         setData(newData);
     };
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const profileInfo = useContext(ClientContext).profileInfo
     const csrfToken = Cookies.get('csrftoken')
     const client = useContext(ClientContext).client

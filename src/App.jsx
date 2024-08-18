@@ -22,7 +22,6 @@ function App() {
 	const [ currentUser, setCurrentUser ] = useState(false)
 	const [ loading, setLoading ] = useState(true)
 	const [ profileInfo, setProfileInfo ] = useState()
-
 	const [csrfToken, setCsrfToken] = useState('')
 
 	useEffect(() => {
@@ -44,7 +43,14 @@ function App() {
 	}
 
 	return (
-		<ClientContext.Provider value={{client: client, currentUser: currentUser, setCurrentUser: setCurrentUser, profileInfo: profileInfo, setProfileInfo: setProfileInfo, csrfToken: csrfToken}}>
+		<ClientContext.Provider value={{
+			client: client,
+			currentUser: currentUser,
+			setCurrentUser: setCurrentUser,
+			profileInfo: profileInfo,
+			setProfileInfo: setProfileInfo,
+			csrfToken: csrfToken,
+			}}>
 			<Header />
 
 				<Routes>
@@ -58,6 +64,7 @@ function App() {
 					<Route path="/add-product" element={currentUser ? <AddProduct /> : <Navigate to='/' />} />
 					<Route path="/edit-product/:productId" element={currentUser ? <EditProduct /> : <Navigate to='/' />} />
 					<Route path="/product/:productId" element={<SingleProduct />} />
+					<Route path="/search/:searchWord" element={<ResultsPage />} />
 				</Routes>
 
 			<Footer />

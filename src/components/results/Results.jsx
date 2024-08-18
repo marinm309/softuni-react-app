@@ -5,20 +5,21 @@ import { ClientContext } from "../../context/clientContext"
 
 function Results(props){
 
-    useEffect(() => {
-        client.get(URL)
-        .then(function(res){
-            setItems(res.data)
-        })
-    }, [])
-
     const [ items, setItems ] = useState([])
     const client = useContext(ClientContext).client
     const filterQuery = useParams()
     const profileInfo = useContext(ClientContext).profileInfo
     const keyWord = filterQuery.productQuery
-    const URL = props.profile ? `/products?profile=${profileInfo.data.user.user_id}` : (keyWord ? `/products?category=${keyWord}` : '/products?total_results=8')
+    const searchWord = filterQuery.searchWord
+    const URL = props.profile ? `/products?profile=${profileInfo.data.user.user_id}` : (searchWord ? `/products?search=${searchWord}` : (keyWord ? `/products?category=${keyWord}` : '/products?total_results=8'))
 
+    useEffect(() => {
+        client.get(URL)
+        .then(function(res){
+            setItems(res.data)
+        })
+    }, [searchWord])
+    
     return(
             <div className="latest-products-section">
 

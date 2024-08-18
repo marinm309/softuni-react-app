@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { ClientContext } from "../../context/clientContext"
 import { useParams, useNavigate  } from "react-router-dom"
+import Cookies from 'js-cookie';
 
 function SingleProduct(){
 
@@ -58,6 +59,7 @@ function SingleProduct(){
                 <hr></hr>
                 <h4>Description</h4>
                 <p>{productData.description}</p>
+                {/* {userData.user && profileInfo && userData.user.user_id != profileInfo.data.user.user_id ? <button onClick={onFavorite} className="like-btn"><img className="like" src="/not-full-star.png" /><br/></button> : ''} */}
                 {userData.user && profileInfo && userData.user.user_id == profileInfo.data.user.user_id ?
                 <div className="single-product-buttons-container">
                     <button className="edit-profile-btn button" onClick={onEdit}>Edit</button>
@@ -67,7 +69,7 @@ function SingleProduct(){
 
             <div className="single-product-profile">
                 <ul>
-                    <img src={userData.user && userData.user.image ? userData.user.image : '/profile-placeholder.jpg'} />
+                    <img className="single-product-profile-image" src={userData.user && userData.user.image ? userData.user.image : '/profile-placeholder.jpg'} />
                     <p><b>Name</b>: <i>{userData.user ? userData.user.name : ''}</i></p>
                     <p><b>Email</b>: <i>{userData.user ? userData.user.email : ''}</i></p>
                 </ul>
